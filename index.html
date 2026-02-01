@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine</title>
+<title>My Valentine</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -21,7 +21,7 @@
   h1 {
     color: #b30000;
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   button {
@@ -45,16 +45,17 @@
   }
 
   #message {
-    font-size: 22px;
-    color: #fff;
+    font-size: 20px;
+    color: white;
     margin-top: 20px;
+    line-height: 1.5;
   }
 
   .heart {
     position: absolute;
-    color: rgba(255, 0, 0, 0.6);
     font-size: 24px;
     animation: float 5s linear infinite;
+    color: rgba(255, 0, 0, 0.6);
   }
 
   @keyframes float {
@@ -62,22 +63,44 @@
     50% { opacity: 1; }
     100% { transform: translateY(-10vh); opacity: 0; }
   }
+
+  #musicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.9);
+    color: #d10000;
+  }
 </style>
 </head>
 
 <body>
 
-<div>
+<div id="content">
   <h1>pankti, will you be my Valentine? ❤️</h1>
   <button id="yes" onclick="sayYes()">Yes 💖</button>
   <button id="no" onmouseover="moveNo()">No 😜</button>
   <div id="message"></div>
 </div>
 
+<button id="musicBtn" onclick="toggleMusic()">🎶 Play music</button>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
 <script>
   function sayYes() {
-    document.getElementById("message").innerHTML =
-      "Yayyy!! 💕 I knew it 😍<br>Happy Valentine’s Day 💖";
+    document.getElementById("content").innerHTML = `
+      <h1>Yayyy!! 💕</h1>
+      <div id="message">
+        Thank you for being you 💖<br>
+        For the smiles, the love, and everything in between.<br><br>
+        Happy Valentine’s Day, Pankti 🌹<br><br>
+        — Karan ❤️
+      </div>
+    `;
   }
 
   function moveNo() {
@@ -95,11 +118,25 @@
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (20 + Math.random() * 20) + "px";
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 5000);
   }
 
   setInterval(createHeart, 300);
+
+  const music = document.getElementById("bgMusic");
+  let playing = false;
+
+  function toggleMusic() {
+    if (!playing) {
+      music.play();
+      document.getElementById("musicBtn").innerText = "⏸ Pause music";
+      playing = true;
+    } else {
+      music.pause();
+      document.getElementById("musicBtn").innerText = "🎶 Play music";
+      playing = false;
+    }
+  }
 </script>
 
 </body>
